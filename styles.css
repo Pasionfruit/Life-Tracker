@@ -6,6 +6,7 @@ body{
     padding-left: 10px;
     padding-right: 10px;
     box-sizing: border-box;
+    font-style: bold;
   }
 
 h1{
@@ -14,6 +15,21 @@ h1{
   color: #000000;
 }
 
+button{
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+}
+
+button:hover {
+  background-color: #005207;
+  opacity: 0.8;
+}
 /* Style the navigation bar */
 .navbar {
   background-color: #2d2d2d;
@@ -37,6 +53,7 @@ h1{
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  border-radius: 15px;
 }
 
 .navbar a:hover {
@@ -44,7 +61,19 @@ h1{
   color: black;
 }
 
-  
+.tracked-container {
+  width: 100%;            /* Set the width */
+    height: 100px;           /* Set the height */
+    background-color: #fff9f9; /* Set the background color */
+    border-radius: 20px;     /* Adjust the roundness */
+    color: white;            /* Text color */
+    display: flex;           /* Center content */
+    align-items: center;     /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 20px;         /* Text size */
+    font-weight: bold;       /* Text weight */
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
+}
 
 /* Stats */
 .calendar {
