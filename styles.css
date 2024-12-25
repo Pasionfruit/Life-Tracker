@@ -1,175 +1,68 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f8f9fa;
+body{
+    background: aqua;
   }
   
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  padding: 10px 20px;
-  color: white;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links li {
-  display: inline;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover {
-  color: #ff9800;
-}
-
-/* Slider */
-.slider {
-  position: relative;
-  max-width: 800px;
-  margin: 40px auto;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-  min-width: 100%;
-  background: white;
-  text-align: center;
-  padding: 40px;
-  box-sizing: border-box;
-}
-
-.slide:nth-child(1) {
-  background-color: #e3f2fd;
-}
-
-.slide:nth-child(2) {
-  background-color: #c8e6c9;
-}
-
-.slide:nth-child(3) {
-  background-color: #ffcdd2;
-}
-
-.navigation {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-}
-
-.navigation button {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.navigation button:hover {
-  background-color: #333;
-}
-
-  .calendar {
-    width: 320px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-  }
   
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .header button {
-    border: none;
-    background: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .header h1 {
-    margin: 0;
-    font-size: 1.2rem;
-    text-align: center;
-  }
-  
-  .days, .dates {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    text-align: center;
-  }
-  
-  .days div {
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .dates div {
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .dates div:hover {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .today {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .dates .green {
-    background-color: #28a745; /* Green */
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .dates .yellow {
-    background-color: #ffc107; /* Yellow */
-    color: black;
-    border-radius: 5px;
-  }
-  
-  .dates .red {
-    background-color: #dc3545; /* Red */
-    color: white;
-    border-radius: 5px;
-  }
-  
+    .calendar {
+      width: 320px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .header button {
+      border: none;
+      background: #007bff;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    
+    .days, .dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+    }
+    
+    .days div {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    .dates div {
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .dates div:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .today {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .dates .green {
+      background-color: #28a745; 
+      color: white;
+      border-radius: 5px;
+    }
