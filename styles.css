@@ -1,68 +1,124 @@
 body{
-    background: aqua;
+    background-color: #f1dbba;
+    font-family: 'Arial', sans-serif;
+    margin: 10px;
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
   }
+
+h1{
+  text-align: center;
+  margin-top: 25px;
+  color: #000000;
+}
+
+/* Style the navigation bar */
+.navbar {
+  background-color: #2d2d2d;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  padding-left: 10px;
+  padding-right: 20px;
+  justify-content: space-between;
+}
+
+/* Navigation links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
   
+
+/* Stats */
+.calendar {
+  width: 95%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
   
-    .calendar {
-      width: 320px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      padding: 20px;
-    }
-    
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    
-    .header button {
-      border: none;
-      background: #007bff;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    .header h1 {
-      margin: 0;
-      font-size: 1.2rem;
-      text-align: center;
-    }
-    
-    .days, .dates {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
-      text-align: center;
-    }
-    
-    .days div {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    
-    .dates div {
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    .dates div:hover {
-      background-color: #007bff;
-      color: white;
-    }
-    
-    .today {
-      background-color: #28a745;
-      color: white;
-    }
-    
-    .dates .green {
-      background-color: #28a745; 
-      color: white;
-      border-radius: 5px;
-    }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header button {
+  border: none;
+  background: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.days, .dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.days div {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.dates div {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dates div:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.today {
+  background-color: #28a745;
+  color: white;
+}
+
+.dates .green {
+  background-color: #28a745; 
+  color: white;
+  border-radius: 5px;
+}
+
+.dates .red {
+  background-color: #dc3545; 
+  color: white;
+  border-radius: 5px;
+}
+
+.dates .yellow {
+  background-color: #f3cb53; 
+  color: white;
+  border-radius: 5px;
+}
