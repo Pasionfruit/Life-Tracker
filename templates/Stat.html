@@ -3,33 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stats</title>
-  <link rel="stylesheet" href="/styles.css">
+  <title>Statistics</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
   <h1>STATISTICS</h1>
 
   <div class="calendar">
     <div class="header">
-      <button id="prev">&lt;</button>
-      <h1 id="month-year"></h1>
-      <button id="next">&gt;</button>
+      <button onclick="window.location.href='/{{ current_date.year }}/{{ current_date.month - 1 if current_date.month > 1 else 12 }}'">&lt;</button>
+      <h1>{{ calendar_data.month_year }}</h1>
+      <button onclick="window.location.href='/{{ current_date.year }}/{{ current_date.month + 1 if current_date.month < 12 else 1 }}'">&gt;</button>
     </div>
-    <div class="days" id="days"></div>
-    <div class="dates" id="dates"></div>
+    <div class="days">
+      <div>Sun</div>
+      <div>Mon</div>
+      <div>Tue</div>
+      <div>Wed</div>
+      <div>Thu</div>
+      <div>Fri</div>
+      <div>Sat</div>
+    </div>
+    <div class="dates" style="display: grid; grid-template-columns: repeat(7, 1fr);">
+      {% for _ in range(calendar_data.first_weekday) %}
+        <div></div>
+      {% endfor %}
+      
+      {% for day in calendar_data.days %}
+        <div class="{{ day.status }}">
+          {{ day.day }}
+        </div>
+      {% endfor %}
+    </div>
   </div>
 
   <nav class="navbar">
-    <a href="Stat.html">Stats</a>
-    <a href="Goal.html">Goals</a>
+    <a href="/Stat.html">Stats</a>
+    <a href="/Goal.html">Goals</a>
     <a href="/Habit.html">Habits</a>
-    <a href="Fitness.html">Fitness</a>
-    <a href="Finance.html">Finance</a>
-  </navbar>
-
-  
-
-  <script src="/script.js"></script>
+    <a href="/Fitness.html">Fitness</a>
+    <a href="/Finance.html">Finance</a>
+  </nav>
 
 </body>
 </html>
