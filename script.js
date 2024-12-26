@@ -3,6 +3,7 @@ const daysElement = document.getElementById('days');
 const monthYearElement = document.getElementById('month-year');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
+
 const habitContainer = document.getElementById('habitCounterContainer');
 const addHabitButton = document.getElementById('addHabitButton');
 
@@ -10,11 +11,6 @@ let habitId = 1;
 
 // Add new habit
 function addHabit() {
-  const habitDiv = document.createElement('div');
-    habitDiv.classList.add('Habit');
-    habitDiv.setAttribute('data-id', habitId);
-
-    
 }
 
 let currentDate = new Date();

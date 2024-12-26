@@ -49,7 +49,7 @@ h1{
 .habit-info-container{
   width: 100%;            /* Set the width */
   padding: 10px;
-    background-color: #000000; /* Set the background color */
+    background-color: #e18383; /* Set the background color */
     border-radius: 20px;     /* Adjust the roundness */
     color: white;            /* Text color */
     display: flex;           /* Center content */
