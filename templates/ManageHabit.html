@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Habit</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="top-container">
+        <a href="/Habit.html">Return</a>
+        <h1>MANAGE HABIT</h1>
+    </div>
+    
+    <div class="habit-info-container">
+        <form action="/editHabit" method="POST">
+            <label for="habit">Habit:</label>
+            <input type="text" id="name" name="habit" value="{{habitName}}" required><br>
+
+            <label for="goal">Goal:</label>
+            <input type="number" id="goal" name="goal" value="{{habitGoal}}" required><br>
+
+            <label type="text">Increment:</label>
+            <input type="number" id="increment" name="increment" value="{{habitIncrement}}" required><br>
+
+            <label for="unit">Unit:</label>
+            <input type="text" id="times" name="times" value="{{habitUnit}}" required><br>
+            
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <form action="/deleteHabit" method="POST">
+            <button type="submit">Delete Habit</button>
+        </form>
+    </div>
+
+    <br>
+    <div class="calendar">
+        <div class="header">
+          <button id="prev">&lt;</button>
+          <h1 id="month-year"></h1>
+          <button id="next">&gt;</button>
+        </div>
+        <div class="days" id="days"></div>
+        <div class="dates" id="dates"></div>
+      </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

@@ -15,8 +15,23 @@ h1{
   color: #000000;
 }
 
-button{
+.tracked-container {
+  width: 100%;            /* Set the width */
+    height: 100px;           /* Set the height */
+    background-color: #fff9f9; /* Set the background color */
+    border-radius: 20px;     /* Adjust the roundness */
+    color: white;            /* Text color */
+    display: flex;           /* Center content */
+    align-items: center;     /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 20px;         /* Text size */
+    font-weight: bold;       /* Text weight */
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
+}
+
+.tracked-container a{
   background-color: #4CAF50;
+  text-decoration: none;
   color: white;
   padding: 15px 20px;
   margin: 8px 0;
@@ -26,9 +41,23 @@ button{
   box-shadow: 4px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
 }
 
-button:hover {
+.tracked-container a:hover {
   background-color: #005207;
   opacity: 0.8;
+}
+
+.habit-info-container{
+  width: 100%;            /* Set the width */
+  padding: 10px;
+    background-color: #000000; /* Set the background color */
+    border-radius: 20px;     /* Adjust the roundness */
+    color: white;            /* Text color */
+    display: flex;           /* Center content */
+    align-items: center;     /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 20px;         /* Text size */
+    font-weight: bold;       /* Text weight */
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
 }
 /* Style the navigation bar */
 .navbar {
@@ -59,20 +88,6 @@ button:hover {
 .navbar a:hover {
   background-color: #ddd;
   color: black;
-}
-
-.tracked-container {
-  width: 100%;            /* Set the width */
-    height: 100px;           /* Set the height */
-    background-color: #fff9f9; /* Set the background color */
-    border-radius: 20px;     /* Adjust the roundness */
-    color: white;            /* Text color */
-    display: flex;           /* Center content */
-    align-items: center;     /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    font-size: 20px;         /* Text size */
-    font-weight: bold;       /* Text weight */
-    box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
 }
 
 /* Stats */
