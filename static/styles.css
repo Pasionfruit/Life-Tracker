@@ -1,13 +1,13 @@
 body{
-    background-color: #f1dbba;
-    font-family: 'Arial', sans-serif;
-    margin: 10px;
-    display: block;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-sizing: border-box;
-    font-style: bold;
-  }
+  background-color: #f1dbba;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  font-style: bold;
+  flex-direction: column;
+}
 
 h1{
   text-align: center;
@@ -16,34 +16,51 @@ h1{
 }
 
 .tracked-container {
-  width: 100%;            /* Set the width */
-    height: 100px;           /* Set the height */
-    background-color: #fff9f9; /* Set the background color */
-    border-radius: 20px;     /* Adjust the roundness */
-    color: white;            /* Text color */
-    display: flex;           /* Center content */
-    align-items: center;     /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    font-size: 20px;         /* Text size */
-    font-weight: bold;       /* Text weight */
-    box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
+  width: 90%;
+  margin: 20px auto;
+  margin-bottom: 90px;
+  flex: 1; /* Ensures the container takes available space between header and navbar */
+  background-color: #fff9f9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; /* Enables vertical scrolling if content exceeds the height */
+  padding: 20px;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
 }
 
-.tracked-container a{
+.tracked-container a {
   background-color: #4CAF50;
   text-decoration: none;
   color: white;
   padding: 15px 20px;
-  margin: 8px 0;
+  margin: 10px 0;
   border: none;
   cursor: pointer;
   border-radius: 15px;
-  box-shadow: 4px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.2);
 }
 
 .tracked-container a:hover {
   background-color: #005207;
   opacity: 0.8;
+}
+
+.tracked-item {
+  width: 95%;
+  margin: 10px 0;
+  height: auto; /* Make height flexible */
+  background-color: rgb(182, 116, 116);
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-wrap: anywhere;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .habit-info-container{
@@ -68,18 +85,14 @@ h1{
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-around;
   padding: 10px;
-  padding-left: 10px;
-  padding-right: 20px;
-  justify-content: space-between;
 }
 
-/* Navigation links */
 .navbar a {
   float: left;
   display: block;
   color: white;
-  text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   border-radius: 15px;

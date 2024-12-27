@@ -102,7 +102,26 @@ def schedule(year=None, month=None):
 
 @app.route('/Habit.html')
 def habit():
-    return render_template('Habit.html', username="Abe")
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM habits")
+    habits = cursor.fetchall()
+
+    habit_data = []
+    for habit in habits:
+        habit_data.append({
+            'id': habit['id'],
+            'Name': habit['Name'],
+            'Goal': habit['Goal'],
+            'Increment': habit['Increment'],
+            'Unit': habit['Unit']
+        })
+
+    print(habit_data)
+
+    conn.close()
+    return render_template('Habit.html', habits=habit_data)
 
 @app.route('/ManageHabit.html')
 @app.route('/ManageHabit/<int:year>/<int:month>')

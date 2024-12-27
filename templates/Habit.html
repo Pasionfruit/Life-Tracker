@@ -10,6 +10,20 @@
   <h1>HABITS</h1>
 
   <div class="tracked-container" id="habit-container">
+    {% for habit in habits %}
+    <div class="tracked-item">
+      <h3>{{ habit['Name'] }} </h3>
+      <p>{{ habit['Goal'] }}</p>
+      <p>{{ habit['Increment'] }}</p>
+      <p>{{ habit['Unit'] }} </p>
+      <p>Counter: </p>
+      <button onclick="incrementCounter({{ habit['id'] }})">Increment</button>
+      <p>{{ habit['Counter'] }} 7</p>
+      <button onclick="decrementCounter({{ habit['id'] }})">Decrement</button>
+      <a href="ManageHabit.html?id={habit.id}">Edit</a>
+      <a href="DeleteHabit.html?id={habit.id}">Delete</a>
+    </div>
+    {% endfor %}
     <a href="ManageHabit.html">Add Habit</a>
   </div>
 
