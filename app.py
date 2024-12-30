@@ -41,7 +41,9 @@ def initialize_db():
         Name TEXT NOT NULL,
         Goal INTEGER NOT NULL,
         Increment INTEGER NOT NULL,
-        Unit TEXT NOT NULL
+        Unit TEXT NOT NULL,
+        Progress INTEGER DEFAULT 0,
+        Streak INTEGER DEFAULT 0
     );
     """)
 
@@ -50,9 +52,10 @@ def initialize_db():
     user_count = cursor.fetchone()[0]
     if user_count == 0:
         cursor.executemany("""
-        INSERT INTO habits (Name, Goal, Increment, Unit)
-        VALUES (?, ?, ?, ?)""", [
-            ("Test", 7, 1, "Times"),
+        INSERT INTO habits (Name, Goal, Increment, Unit, Progress, Streak)
+        VALUES (?, ?, ?, ?, ?, ?)""", [
+            ("Test", 7, 1, "Times", 0, 3),
+            ("Test2", 5, 1, "Times", 0 , 2),
         ])
 
     conn.commit()
@@ -85,7 +88,28 @@ def get_calendar_data(date):
 # # Habit page
 @app.route('/')
 def home():
-    return render_template('Habit.html')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM habits")
+    habits = cursor.fetchall()
+
+    habit_data = []
+    for habit in habits:
+        habit_data.append({
+            'id': habit['id'],
+            'Name': habit['Name'],
+            'Goal': habit['Goal'],
+            'Increment': habit['Increment'],
+            'Unit': habit['Unit'],
+            'Progress': habit['Progress'],
+            'Streak': habit['Streak']
+        })
+
+    print(habit_data)
+
+    conn.close()
+    return render_template('Habit.html', habits=habit_data)
 
 @app.route('/Stat.html')
 @app.route('/<int:year>/<int:month>')
@@ -115,13 +139,28 @@ def habit():
             'Name': habit['Name'],
             'Goal': habit['Goal'],
             'Increment': habit['Increment'],
-            'Unit': habit['Unit']
+            'Unit': habit['Unit'],
+            'Progress': habit['Progress'],
+            'Streak': habit['Streak']
         })
 
     print(habit_data)
 
     conn.close()
     return render_template('Habit.html', habits=habit_data)
+
+@app.route('/increment/<int:habit_id>', methods=['POST'])
+def increment_habit(habit_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM habits")
+    habits = cursor.fetchall()
+
+    for habit in habits:
+        if habit["id"] == habit_id and habit["progress"] < habit["goal"]:
+            habit["progress"] += 1
+    return redirect(url_for('Habit.html'))
 
 @app.route('/ManageHabit.html')
 @app.route('/ManageHabit/<int:year>/<int:month>')
@@ -135,19 +174,6 @@ def manage_habit(year=None, month=None):
     calendar_data = get_calendar_data(current_date)
     
     return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date)
-
-# @app.route('/ManageHabit.html')
-# @app.route('/<int:year>/<int:month>')
-# def manage_habit(year=None, month=None):
-#     if not year or not month:
-#         current_date = datetime.today()
-#     else:
-#         # Adjust month and year if they are provided
-#         current_date = datetime(year, month, 1)
-
-#     calendar_data = get_calendar_data(current_date)
-    
-#     return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date)
 
 @app.route('/Goal.html')
 def goal():
