@@ -87,6 +87,7 @@ def get_calendar_data(date):
 
 # # Habit page
 @app.route('/')
+@app.route('/Habit.html')
 def home():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -106,8 +107,6 @@ def home():
             'Streak': habit['Streak']
         })
 
-    print(habit_data)
-
     conn.close()
     return render_template('Habit.html', habits=habit_data)
 
@@ -124,30 +123,47 @@ def schedule(year=None, month=None):
     
     return render_template('Stat.html', calendar_data=calendar_data, current_date=current_date)
 
-@app.route('/Habit.html')
-def habit():
-    conn = get_db_connection()
-    cursor = conn.cursor()
+@app.route('/AddHabit.html', methods=['GET', 'POST'])
+def add_habit():
+    if request.method == 'POST':
+        name = request.form['name']
+        goal = request.form['goal']
+        increment = request.form['increment']
+        unit = request.form['unit']
+        
+        errors = []
 
-    cursor.execute("SELECT * FROM habits")
-    habits = cursor.fetchall()
+        justSpace = True
+        if name:
+            for c in name:
+                if c != ' ':
+                    justSpace = False
+                    break
 
-    habit_data = []
-    for habit in habits:
-        habit_data.append({
-            'id': habit['id'],
-            'Name': habit['Name'],
-            'Goal': habit['Goal'],
-            'Increment': habit['Increment'],
-            'Unit': habit['Unit'],
-            'Progress': habit['Progress'],
-            'Streak': habit['Streak']
-        })
+        if not name or justSpace:
+            errors.append('Name is required')
 
-    print(habit_data)
+        if not goal:
+            errors.append('Goal is required')
 
-    conn.close()
-    return render_template('Habit.html', habits=habit_data)
+        if not increment:
+            errors.append('Increment is required')
+
+        if errors:       
+            print("here") 
+            return render_template('AddHabit.html', errors=errors)
+        
+        else:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+
+            cursor.execute("INSERT INTO habits (Name, Goal, Increment, Unit) VALUES (?, ?, ?, ?)", (name, goal, increment, unit))
+            conn.commit()
+            conn.close()
+
+            return redirect(url_for('home'))
+
+    return render_template('AddHabit.html')
 
 @app.route('/increment/<int:habit_id>', methods=['POST'])
 def increment_habit(habit_id):
