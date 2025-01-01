@@ -85,7 +85,6 @@ def get_calendar_data(date):
         'first_weekday': first_weekday,
     }
 
-
 def get_habit_by_id(habit_id):
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -94,7 +93,6 @@ def get_habit_by_id(habit_id):
     conn.close()
 
     return habit
-
 
 # # Habit page
 @app.route('/')
@@ -175,22 +173,25 @@ def add_habit():
             return redirect(url_for('home'))
 
     return render_template('AddHabit.html')
-    
-@app.route('/ManageHabit/<int:year>/<int:month>')
-def manage_habit(year=None, month=None):
 
+@app.route('/ManageHabit.html', methods=['GET'])
+@app.route('/ManageHabit/<int:year>/<int:month>', methods=['GET', 'POST'])
+def manage_habit(year=None, month=None):
     habit_id = request.args.get('id')
     errors = []
+    habit = None
+
+    if request.method == 'POST':
+        pass
 
     if habit_id:
         habit = get_habit_by_id(habit_id) 
-        return render_template('ManageHabit.html', habit=habit)
     else:
         errors.append('Missing Habit')
 
-
-
     # Calendar setup
+    if year is None or month is None:  
+        current_date = datetime.today()
     if not year or not month:
         current_date = datetime.today()
     else:
@@ -199,7 +200,7 @@ def manage_habit(year=None, month=None):
 
     calendar_data = get_calendar_data(current_date)
     
-    return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date)
+    return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date, habit=habit)
 
 
 @app.route('/increment/<int:habit_id>', methods=['POST'])

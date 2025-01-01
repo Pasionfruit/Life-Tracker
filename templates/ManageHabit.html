@@ -13,33 +13,33 @@
     </div>
     
     <div class="habit-info-container">
-        <form action="/editHabit" method="POST">
-            <label for="habit">Habit Name:</label>
-            <input type="text" id="name" name="habit" value="{{habitName}}" required><br>
+        <form action="/ManageHabit/{{ current_date.year }}/{{ current_date.month }}" method="POST">
+          <label for="habit">Habit Name:</label>
+          <input type="text" id="name" name="habit" value="{{habitName}}" required><br>
 
-            <label for="goal">Goal:</label>
-            <input type="number" id="goal" name="goal" value="{{habitGoal}}" required><br>
+          <label for="goal">Goal:</label>
+          <input type="number" id="goal" name="goal" value="{{habitGoal}}" required><br>
 
-            <label type="text">Increment:</label>
-            <input type="number" id="increment" name="increment" value="{{habitIncrement}}" required><br>
+          <label type="text">Increment:</label>
+          <input type="number" id="increment" name="increment" value="{{habitIncrement}}" required><br>
 
-            <label for="unit">Unit:</label>
-            <input type="text" id="times" name="times" value="{{habitUnit}}" required><br>
+          <label for="unit">Unit:</label>
+          <input type="text" id="times" name="times" value="{{habitUnit}}" required><br>
             
-            <!-- Edit color feature 
-            <label for="color">Color:</label>
-            <select name="color" id="color" value=""{{habitColor}} required>
-                <option value="red">red</option>
-                <option value="orange">orange</option>
-                <option value="yellow">yellow</option>
-                <option value="green">green</option>
-                <option value="blue">blue</option>
-                <option value="purple">purple</option>
-                <option value="pink">pink</option>
-                <option value="brown">brown</option> 
-            </select> -->
+          <!-- Edit color feature 
+          <label for="color">Color:</label>
+          <select name="color" id="color" value=""{{habitColor}} required>
+              <option value="red">red</option>
+              <option value="orange">orange</option>
+              <option value="yellow">yellow</option>
+              <option value="green">green</option>
+              <option value="blue">blue</option>
+              <option value="purple">purple</option>
+              <option value="pink">pink</option>
+              <option value="brown">brown</option> 
+          </select> -->
 
-            <button type="submit">Save Changes</button>
+          <button type="submit">Save Changes</button>
         </form>
 
         <form action="/deleteHabit" method="POST">
@@ -50,9 +50,9 @@
     <br>
     <div class="calendar">
         <div class="header">
-          <button onclick="window.location.href='/ManageHabit/{{ current_date.year }}/{{ current_date.month - 1 if current_date.month > 1 else 12 }}'">&lt;</button>
+          <button onclick="window.location.href='/ManageHabit/{{ current_date.year - 1 if current_date.month == 1 else current_date.year }}/{{ 12 if current_date.month == 1 else current_date.month - 1 }}'">&lt;</button>
           <h1>{{ calendar_data.month_year }}</h1>
-          <button onclick="window.location.href='/ManageHabit/{{ current_date.year }}/{{ current_date.month + 1 if current_date.month < 12 else 1 }}'">&gt;</button>
+          <button onclick="window.location.href='/ManageHabit/{{ current_date.year + 1 if current_date.month == 12 else current_date.year }}/{{ 1 if current_date.month == 12 else current_date.month + 1 }}'">&gt;</button>
         </div>
         <div class="days">
           <div>Sun</div>
