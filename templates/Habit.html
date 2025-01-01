@@ -23,7 +23,7 @@
       <p>{{ habit['Progress'] }} // {{ habit['Goal'] }} </p>
       <!-- <button onclick="incrementCounter('{{ habit['id'] }}')">+</button> -->
 
-      <a href="ManageHabit.html?id={habit.id}">Edit</a>
+      <a href="ManageHabit.html?id= {{habit.id}} ">Edit</a>
     </div>
     {% endfor %}
     <a href="AddHabit.html">Add Habit</a>
