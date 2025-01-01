@@ -15,16 +15,16 @@
     <div class="habit-info-container">
         <form action="/ManageHabit/{{ current_date.year }}/{{ current_date.month }}" method="POST">
           <label for="habit">Habit Name:</label>
-          <input type="text" id="name" name="habit" value="{{habitName}}" required><br>
+          <input type="text" id="name" name="habit" value="{{habit['Name']}}" required><br>
 
           <label for="goal">Goal:</label>
-          <input type="number" id="goal" name="goal" value="{{habitGoal}}" required><br>
+          <input type="number" id="goal" name="goal" value="{{habit['Goal']}}" required><br>
 
           <label type="text">Increment:</label>
-          <input type="number" id="increment" name="increment" value="{{habitIncrement}}" required><br>
+          <input type="number" id="increment" name="increment" value="{{habit['Increment']}}" required><br>
 
           <label for="unit">Unit:</label>
-          <input type="text" id="times" name="times" value="{{habitUnit}}" required><br>
+          <input type="text" id="unit" name="unit" value="{{habit['unit']}}" required><br>
             
           <!-- Edit color feature 
           <label for="color">Color:</label>
