@@ -14,8 +14,9 @@
     
     <div class="habit-info-container">
         <form action="/ManageHabit/{{ current_date.year }}/{{ current_date.month }}" method="POST">
+          <input type="hidden" name="habit_id" value="{{ habit['id'] if habit else '' }}">
           <label for="habit">Habit Name:</label>
-          <input type="text" id="name" name="habit" value="{{habit['Name']}}" required><br>
+          <input type="text" id="name" name="name" value="{{habit['Name']}}" required><br>
 
           <label for="goal">Goal:</label>
           <input type="number" id="goal" name="goal" value="{{habit['Goal']}}" required><br>

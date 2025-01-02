@@ -91,7 +91,6 @@ def get_habit_by_id(habit_id):
     cursor.execute("SELECT * FROM habits WHERE id = ?", (habit_id,))
     habit = cursor.fetchone()
     conn.close()
-
     return habit
 
 # # Habit page
@@ -142,25 +141,16 @@ def add_habit():
         
         errors = []
 
-        justSpace = True
-        if name:
-            for c in name:
-                if c != ' ':
-                    justSpace = False
-                    break
-
-        if not name or justSpace:
+        if not name:
             errors.append('Name is required')
 
-        if not goal:
-            errors.append('Goal is required')
-
-        if not increment:
-            errors.append('Increment is required')
-
-        if errors:       
-            print("here") 
-            return render_template('AddHabit.html', errors=errors)
+        try:
+            goal = int(goal)
+            increment = int(increment)
+            if increment <= 0:
+                errors.append('Increment must be greater than 0')
+        except ValueError:
+            errors.append('Goal and Increment must be numeric')
         
         else:
             conn = get_db_connection()
@@ -177,28 +167,58 @@ def add_habit():
 @app.route('/ManageHabit.html', methods=['GET'])
 @app.route('/ManageHabit/<int:year>/<int:month>', methods=['GET', 'POST'])
 def manage_habit(year=None, month=None):
-    habit_id = request.args.get('id')
+    habit_id = request.args.get('id', type=int)
     errors = []
     habit = None
 
-    if request.method == 'POST':
-        pass
-
     if habit_id:
         habit = get_habit_by_id(habit_id) 
-    else:
-        errors.append('Missing Habit')
+        if not habit:
+            errors.append('Habit not found')
 
     # Calendar setup
-    if year is None or month is None:  
-        current_date = datetime.today()
-    if not year or not month:
-        current_date = datetime.today()
-    else:
-        # Adjust month and year if they are provided
-        current_date = datetime(year, month, 1)
-
+    current_date = datetime(year or datetime.today().year, month or datetime.today().month, 1)
     calendar_data = get_calendar_data(current_date)
+
+    if request.method == 'POST':
+        id = request.form.get('habit_id', type=int)
+        name = request.form['name'].strip()
+        goal = request.form['goal']
+        increment = request.form['increment']
+        unit = request.form['unit']
+
+        if not name:
+            errors.append('Name is required')
+
+        try:
+            goal = int(goal)
+            increment = int(increment)
+            if increment <= 0:
+                errors.append('Increment must be greater than 0')
+        except ValueError:
+            errors.append('Goal and Increment must be numeric')
+
+        if errors:
+            return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date, habit=habit, errors=errors)
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "UPDATE habits SET Name = ?, Goal = ?, Increment = ?, Unit = ? WHERE id = ?",
+                (name, goal, increment, unit, id)
+            )
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
+            errors.append(f"Database error: {e}")
+        finally:
+            conn.close()
+                
+        if errors:
+            return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date, habit=habit, errors=errors)
+
+        return redirect(url_for('home'))
     
     return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date, habit=habit)
 
