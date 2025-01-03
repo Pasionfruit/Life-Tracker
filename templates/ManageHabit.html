@@ -43,8 +43,10 @@
           <button type="submit">Save Changes</button>
         </form>
 
-        <form action="/deleteHabit" method="POST">
-            <button type="submit">Delete Habit</button>
+        <form action="/ManageHabit/{{ current_date.year }}/{{ current_date.month }}" method="POST">
+          <input type="hidden" name="habit_id" value="{{ habit['id'] if habit else '' }}">
+          <input type="hidden" name="action" value="delete">
+          <button type="submit">Delete Habit</button>
         </form>
     </div>
 

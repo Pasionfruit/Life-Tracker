@@ -181,7 +181,26 @@ def manage_habit(year=None, month=None):
     calendar_data = get_calendar_data(current_date)
 
     if request.method == 'POST':
+        action = request.form.get('action', '')
         id = request.form.get('habit_id', type=int)
+
+        if action == 'delete':
+            if id:
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                try:
+                    cursor.execute("DELETE FROM habits WHERE id = ?", (id,))
+                    conn.commit()
+                    return redirect(url_for('home'))
+                except Exception as e:
+                    conn.rollback()
+                    errors.append(f"Database error: {e}")
+                finally:
+                    conn.close()
+            else:
+                errors.append("Missing Habit ID to delete")
+            return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date, habit=habit, errors=errors)
+        
         name = request.form['name'].strip()
         goal = request.form['goal']
         increment = request.form['increment']
