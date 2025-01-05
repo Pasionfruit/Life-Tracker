@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for, make_response, abort
+from flask import Flask, render_template, jsonify, request, redirect, session, url_for, make_response, abort
 from functools import wraps
 from dotenv import load_dotenv
 from Crypto.Cipher import AES
@@ -117,6 +117,28 @@ def home():
 
     conn.close()
     return render_template('Habit.html', habits=habit_data)
+
+@app.route('/increment', methods=['POST'])
+def increment():
+    habit_id = request.json.get('id')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM habits WHERE id = ?", (habit_id,))
+    habit = cursor.fetchone()
+
+    if habit:
+        new_progress = habit['Progress'] + habit['Increment']
+        cursor.execute(
+            "UPDATE habits SET Progress = ? WHERE id = ?", (new_progress, habit_id)
+        )
+        conn.commit()
+        conn.close()
+        return jsonify({"success": True, "Progress": new_progress})
+    else:
+        conn.close()
+        return jsonify({"success": False, "message": "Habit not found"}), 404
 
 @app.route('/Stat.html')
 @app.route('/<int:year>/<int:month>')
