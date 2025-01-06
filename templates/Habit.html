@@ -17,10 +17,10 @@
 
       <p>{{ habit['Increment'] }}</p>
       <p>Streak: {{ habit['Streak'] }}</p>
-      
-      <!-- <button onclick="decrementCounter({{ habit['id'] }}')">-</button> -->
+
+      <button onclick="decrementCounter({{ habit['id'] }})">-</button>
       <p>Counter: <span id="progress-{{ habit['id'] }}">{{ habit['Progress'] }}</span> // {{ habit['Goal'] }}</p>
-      <button onclick="incrementCounter({{ habit['id'] }});">+</button>
+      <button onclick="incrementCounter({{ habit['id'] }})">+</button>
 
       <a href="ManageHabit.html?id= {{habit.id}} ">Edit</a>
     </div>

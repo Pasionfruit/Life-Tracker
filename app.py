@@ -263,19 +263,50 @@ def manage_habit(year=None, month=None):
     
     return render_template('ManageHabit.html', calendar_data=calendar_data, current_date=current_date, habit=habit)
 
-
 @app.route('/increment/<int:habit_id>', methods=['POST'])
 def increment_habit(habit_id):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM habits")
-    habits = cursor.fetchall()
+    cursor.execute("SELECT progress, goal, increment FROM habits WHERE id = ?", (habit_id,))
+    habit = cursor.fetchone()
 
-    for habit in habits:
-        if habit["id"] == habit_id and habit["progress"] < habit["goal"]:
-            habit["progress"] += 1
-    return redirect(url_for('Habit.html'))
+    if habit and habit["progress"] < habit["goal"]:
+        new_progress = habit["progress"] + habit["increment"]
+        if new_progress > habit["goal"]:
+            new_progress = habit["goal"]
+            print(new_progress)
+        cursor.execute(
+            "UPDATE habits SET progress = ? WHERE id = ?",
+            (new_progress, habit_id)
+        )
+        conn.commit()
+
+        return jsonify({"success": True, "Progress": new_progress})
+
+    return jsonify({"success": False, "message": "Cannot decrement progress."})
+
+@app.route('/decrement/<int:habit_id>', methods=['POST'])
+def decrement_habit(habit_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT progress, increment FROM habits WHERE id = ?", (habit_id,))
+    habit = cursor.fetchone()
+
+    if habit and habit["progress"] > 0:
+        new_progress = habit["progress"] - habit["increment"]
+        if new_progress < 0:
+            new_progress = 0
+        cursor.execute(
+            "UPDATE habits SET progress = ? WHERE id = ?",
+            (new_progress, habit_id)
+        )
+        conn.commit()
+
+        return jsonify({"success": True, "Progress": new_progress})
+
+    return jsonify({"success": False, "message": "Cannot decrement progress."})
 
 @app.route('/Goal.html')
 def goal():
