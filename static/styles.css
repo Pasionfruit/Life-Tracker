@@ -76,6 +76,39 @@ h1{
     font-weight: bold;       /* Text weight */
     box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
 }
+
+.habit-decrement{
+  background-color: #f7443e;
+  text-decoration: none;
+  color: white;
+  padding: 1px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.2);
+} 
+
+.habit-decrement:hover{
+  background-color: #831515;
+  opacity: 0.8;
+} 
+
+.habit-increment{
+  background-color: #35da59;
+  text-decoration: none;
+  color: white;
+  padding: 1px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.2);
+} 
+
+.habit-increment:hover{
+  background-color: #125305;
+  opacity: 0.8;
+} 
+
 /* Style the navigation bar */
 .navbar {
   background-color: #2d2d2d;
