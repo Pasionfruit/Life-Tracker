@@ -1,5 +1,5 @@
 body{
-  background-color: #f1dbba;
+  background-color: #183227;
   font-family: 'Arial', sans-serif;
   margin: 0;
   box-sizing: border-box;
@@ -7,20 +7,22 @@ body{
   display: flex;
   font-style: bold;
   flex-direction: column;
+  cursor: url('default_cursor.png') 64 64, auto;
 }
 
 h1{
   text-align: center;
-  margin-top: 25px;
-  color: #000000;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 70px;
 }
 
 .tracked-container {
   width: 90%;
-  margin: 20px auto;
+  margin: 2px auto;
   margin-bottom: 90px;
   flex: 1; /* Ensures the container takes available space between header and navbar */
-  background-color: #fff9f9;
+  background-color: #8b9b74;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -50,32 +52,129 @@ h1{
 .tracked-item {
   width: 95%;
   margin: 10px 0;
-  height: auto; /* Make height flexible */
-  background-color: rgb(182, 116, 116);
+  padding: 0px 15px;
+  background-color: #9eb184;
   border-radius: 20px;
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow-wrap: anywhere;
-  font-size: 20px;
-  font-weight: bold;
+  justify-content: space-between; /* Ensures space between child elements */
   box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+  font-size: 18px;
+  font-weight: bold;
+  color: #183227;
+}
+
+.tracked-habit {
+  padding-left: 15px;
+  font-size: 25px;
+  flex: 1; /* Takes up space on the left */
+  text-align: left;
+}
+
+.tracked-streak {
+  margin-top: -25px;
+  font-size: 20px;
+}
+
+.tracked-progress {
+  flex: 1; /* Takes up more space in the middle */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers progress items */
+  gap: 10px; /* Adds spacing between buttons and text */
+  width: 50%;
+}
+
+.tracked-progress p {
+  font-size: 30px;
+  display: inline-block; /* Ensures consistent spacing */
+  width: 50%; /* Ensures text spans the container */
+  text-align: center; /* Centers the text in the allocated space */
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+.habit-decrement{
+  cursor: url('giant_cursor.png') 16 16, auto;
+  background-color: #bb3d38;
+  text-decoration: none;
+  font-size: 30px;
+  font-style: bold;
+  color: white;
+  margin: 10px;
+  padding: 10px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.2);
+} 
+
+.habit-decrement:hover{
+  background-color: #831515;
+  opacity: 0.8;
+  cursor: url('giant_cursor.png') 16 16, auto;
+} 
+
+.habit-increment{
+  background-color: #218d39;
+  text-decoration: none;
+  font-size: 30px;
+  font-style: bold;
+  color: white;
+  margin: 10px;
+  padding: 10px 25px;
+  border: none;
+  cursor: url('giant_cursor.png') 16 16, auto;
+  border-radius: 15px;
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.2);
+} 
+
+.habit-increment:hover{
+  cursor: url('giant_cursor.png') 16 16, auto;
+  background-color: #125305;
+  opacity: 0.8;
+} 
+
+.tracked-item a {
+  display: flex;
+  align-items: center; /* Centers content vertically */
+  justify-content: center; /* Centers content horizontally */
+  text-align: center;
+  color: black;
+  text-decoration: none;
+  background-color: #FFFDD0;
+  padding: 10px 25px;
+  border-radius: 5px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  height: 25%; /* Adjust height as needed */
+  width: fit-content; /* Makes the box fit its content */
+  max-width: 150px; /* Optional: Set a maximum width */
+  flex-shrink: 0; /* Prevents the box from shrinking */
+  font-size: 15px
+}
+
+.tracked-item a:hover {
+  background-color: #005207;
+  opacity: 0.9;
+  cursor: url('giant_cursor.png') 16 16, auto;
 }
 
 .habit-info-container{
-  width: 100%;            /* Set the width */
-  padding: 10px;
-    background-color: #e18383; /* Set the background color */
-    border-radius: 20px;     /* Adjust the roundness */
-    color: white;            /* Text color */
-    display: flex;           /* Center content */
-    align-items: center;     /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    font-size: 20px;         /* Text size */
-    font-weight: bold;       /* Text weight */
-    box-shadow: 4px 4px rgba(0, 0, 0, 0.4); /* Optional shadow */
+  width: 90%;
+  margin: 2px auto;
+  margin-bottom: 90px;
+  flex: 1; /* Ensures the container takes available space between header and navbar */
+  background-color: #8b9b74;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; /* Enables vertical scrolling if content exceeds the height */
+  padding: 20px;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
 }
+
 /* Style the navigation bar */
 .navbar {
   background-color: #2d2d2d;
@@ -96,9 +195,11 @@ h1{
   padding: 14px 16px;
   text-decoration: none;
   border-radius: 15px;
+  cursor: url('giant_cursor.png') 16 16, auto;
 }
 
 .navbar a:hover {
+  cursor: url('giant_cursor.png') 16 16, auto;
   background-color: #ddd;
   color: black;
 }
