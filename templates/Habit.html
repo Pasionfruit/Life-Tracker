@@ -12,16 +12,17 @@
   <div class="tracked-container" id="habit-container">
     {% for habit in habits %}
     <div class="tracked-item">
-      <h3>{{ habit['Name'] }} </h3>
-      <p>{{ habit['Unit'] }} </p>
+      <div class="tracked-habit">
+        <h2 class="habit">{{ habit['Name'] }} </h2>
+        <p class="tracked-item-streak">Streak: {{ habit['Streak'] }}</p>
+      </div>
 
-      <p>{{ habit['Increment'] }}</p>
-      <p>Streak: {{ habit['Streak'] }}</p>
-
-      <button class="habit-decrement" onclick="decrementCounter({{ habit['id'] }})">-</button>
-      <p>Counter: <span id="progress-{{ habit['id'] }}">{{ habit['Progress'] }}</span> // {{ habit['Goal'] }}</p>
-      <button class="habit-increment" onclick="incrementCounter({{ habit['id'] }})">+</button>
-
+      <div class="tracked-progress">
+        <button class="habit-decrement" onclick="decrementCounter({{ habit['id'] }})">-</button>
+        <p><span id="progress-{{ habit['id'] }}">{{ habit['Progress'] }}</span> / {{ habit['Goal'] }} {{ habit['Unit'] }}</p>
+        <button class="habit-increment" onclick="incrementCounter({{ habit['id'] }})">+</button>
+      </div>
+      
       <a href="ManageHabit.html?id= {{habit.id}} ">Edit</a>
     </div>
     {% endfor %}
