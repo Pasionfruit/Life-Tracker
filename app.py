@@ -55,7 +55,7 @@ def initialize_db():
     );
     """)
 
-    # Re-create the goal table if it doesn't exist
+    # Re-create the goals table if it doesn't exist
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS goals (
         Goal_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,28 +65,48 @@ def initialize_db():
     );
     """)
 
-    # Re-create the subtask table if it doesn't exist
+    # Re-create the subtasks table if it doesn't exist
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS subtasks (
         Subtask_id INTEGER PRIMARY KEY AUTOINCREMENT,
         Goal_id INTEGER NOT NULL,
         Name TEXT NOT NULL,
-        Priority TEXT NOT NULL,
+        Priority INTEGER NOT NULL,
         Due_date TEXT NOT NULL,
         Description TEXT NOT NULL,
-        Status TEXT NOT NULL
+        Status TEXT NOT NULL,
         FOREIGN KEY (Goal_id) REFERENCES goals (Goal_id)
     );
     """)
 
     # Insert data into `habits` only if the table is empty
     cursor.execute("SELECT COUNT(*) FROM habits")
-    user_count = cursor.fetchone()[0]
-    if user_count == 0:
+    habits_count = cursor.fetchone()[0]
+    if habits_count == 0:
         cursor.executemany("""
         INSERT INTO habits (Name, Goal, Increment, Unit, Progress, Streak)
         VALUES (?, ?, ?, ?, ?, ?)""", [
             ("Drink Water", 8, 1, "Times", 0, 3),
+        ])
+
+    # Insert data into `goals` only if the table is empty
+    cursor.execute("SELECT COUNT(*) FROM goals")
+    goals_count = cursor.fetchone()[0]
+    if goals_count == 0:
+        cursor.executemany("""
+        INSERT INTO goals (Name, Description, Created_at)
+        VALUES (?, ?, ?)""", [
+            ("Finish Tracker Website", "Code it", "2025-01-01"),
+        ])
+
+    # Insert data into `goals` only if the table is empty
+    cursor.execute("SELECT COUNT(*) FROM subtasks")
+    subtasks_count = cursor.fetchone()[0]
+    if subtasks_count == 0:
+        cursor.executemany("""
+        INSERT INTO subtasks (Goal_id, Name, Priority, Due_date, Description, Status)
+        VALUES (?, ?, ?, ?, ?, ?)""", [
+            (1, "Edit code", 1, "2025-12-31","Make's Awesome Upgrades", "In Progress"),
         ])
 
     conn.commit()
