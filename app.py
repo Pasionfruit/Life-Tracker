@@ -31,10 +31,18 @@ def initialize_db():
     cursor = conn.cursor() 
 
     habits_table = 'habits'
-    drop_habits = f"DROP TABLE IF EXISTS {habits_table}"
-    cursor.execute(drop_habits)
+    goals_table = 'goals'
+    subtask_table = 'subtasks'
 
-    # Re-create the users table if it doesn't exist
+    drop_habits = f"DROP TABLE IF EXISTS {habits_table}"
+    drop_goals = f"DROP TABLE IF EXISTS {goals_table}"
+    drop_subtask = f"DROP TABLE IF EXISTS {subtask_table}"
+
+    cursor.execute(drop_habits)
+    cursor.execute(drop_goals)
+    cursor.execute(drop_subtask)
+
+    # Re-create the habits table if it doesn't exist
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS habits (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,15 +55,38 @@ def initialize_db():
     );
     """)
 
-    # Insert data into `users` only if the table is empty
+    # Re-create the goal table if it doesn't exist
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS goals (
+        Goal_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name TEXT NOT NULL,
+        Description TEXT NOT NULL,
+        Created_at TEXT NOT NULL
+    );
+    """)
+
+    # Re-create the subtask table if it doesn't exist
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS subtasks (
+        Subtask_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Goal_id INTEGER NOT NULL,
+        Name TEXT NOT NULL,
+        Priority TEXT NOT NULL,
+        Due_date TEXT NOT NULL,
+        Description TEXT NOT NULL,
+        Status TEXT NOT NULL
+        FOREIGN KEY (Goal_id) REFERENCES goals (Goal_id)
+    );
+    """)
+
+    # Insert data into `habits` only if the table is empty
     cursor.execute("SELECT COUNT(*) FROM habits")
     user_count = cursor.fetchone()[0]
     if user_count == 0:
         cursor.executemany("""
         INSERT INTO habits (Name, Goal, Increment, Unit, Progress, Streak)
         VALUES (?, ?, ?, ?, ?, ?)""", [
-            ("Test", 7, 1, "Times", 0, 3),
-            ("Test2", 5, 1, "Times", 0 , 2),
+            ("Drink Water", 8, 1, "Times", 0, 3),
         ])
 
     conn.commit()
