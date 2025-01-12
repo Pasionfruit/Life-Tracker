@@ -9,11 +9,21 @@
 <body>
     <h1>GOALS</h1>
     <div class="tracked-container" id="goal-container">
-        <a href="AddGoal.html">Add Goal</a>
         {% for goal in goals %}
+        <div class="tracked-item">
+            <div class="tracked-goal">
+                <h2 class="goal">{{ goal['Name'] }}</h2>
+            </div>
 
+            <div class="tracked-progress">
+                <p><span id="progress-{{ goal['id'] }}">{{ goal['Progress'] }}</span> / {{ goal['Goal'] }} {{ goal['Unit'] }}</p>
+            </div>
 
+            <a href="AddSubtask.html?id={{ goal.id }}">Edit</a>
+            <a href="Subtask.html?id={{ goal.id }}">Subtasks</a>
         {% endfor %}
+        </div>
+        <a href="AddGoal.html">Add Goal</a>
     </div>
 
     <nav class="navbar">

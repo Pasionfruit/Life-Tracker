@@ -5,7 +5,6 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 import os
 import sqlite3
-
 import calendar
 from datetime import datetime, timedelta
 
@@ -17,7 +16,7 @@ date_statuses = {
     '2024-12-15': 'yellow',
     '2024-12-02': 'red',
 }
-# Load environment variables
+
 load_dotenv()
 
 # Function to connect to the database
@@ -113,7 +112,7 @@ def initialize_db():
     conn.close()
 
 initialize_db()
-    
+
 # Function to get the calendar for a specific month and year
 def get_calendar_data(date):
     # Get the first day of the month and total days in the month
@@ -144,7 +143,37 @@ def get_habit_by_id(habit_id):
     conn.close()
     return habit
 
-# # Habit page
+def get_goal_by_id(goal_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM goals WHERE Goal_id = ?", (goal_id,))
+    goal = cursor.fetchone()
+    conn.close()
+    return goal
+
+def get_subtask_by_id(subtask_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM subtasks WHERE Subtask_id = ?", (subtask_id,))
+    subtask = cursor.fetchone()
+    conn.close()
+    return subtask
+
+# ============================================ Statistics page ============================================
+@app.route('/Stat.html')
+@app.route('/<int:year>/<int:month>')
+def schedule(year=None, month=None):
+    # Default to the current date if no year or month is provided
+    if not year or not month:
+        current_date = datetime.today()
+    else:
+        current_date = datetime(year, month, 1)
+
+    calendar_data = get_calendar_data(current_date)
+    
+    return render_template('Stat.html', calendar_data=calendar_data, current_date=current_date)
+
+# ============================================ Habits page ============================================
 @app.route('/')
 @app.route('/Habit.html')
 def home():
@@ -169,42 +198,6 @@ def home():
     conn.close()
     return render_template('Habit.html', habits=habit_data)
 
-@app.route('/increment', methods=['POST'])
-def increment():
-    habit_id = request.json.get('id')
-
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM habits WHERE id = ?", (habit_id,))
-    habit = cursor.fetchone()
-
-    if habit:
-        new_progress = habit['Progress'] + habit['Increment']
-        cursor.execute(
-            "UPDATE habits SET Progress = ? WHERE id = ?", (new_progress, habit_id)
-        )
-        conn.commit()
-        conn.close()
-        return jsonify({"success": True, "Progress": new_progress})
-    else:
-        conn.close()
-        return jsonify({"success": False, "message": "Habit not found"}), 404
-
-@app.route('/Stat.html')
-@app.route('/<int:year>/<int:month>')
-def schedule(year=None, month=None):
-    # Default to the current date if no year or month is provided
-    if not year or not month:
-        current_date = datetime.today()
-    else:
-        current_date = datetime(year, month, 1)
-
-    calendar_data = get_calendar_data(current_date)
-    
-    return render_template('Stat.html', calendar_data=calendar_data, current_date=current_date)
-
-@app.route('/AddHabit.html', methods=['GET', 'POST'])
 def add_habit():
     if request.method == 'POST':
         name = request.form['name']
@@ -359,14 +352,32 @@ def decrement_habit(habit_id):
 
     return jsonify({"success": False, "message": "Cannot decrement progress."})
 
+# ============================================ Goals page ============================================
 @app.route('/Goal.html')
 def goal():
-    return render_template('Goal.html')
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
+    cursor.execute("SELECT * FROM goals")
+    goals = cursor.fetchall()
+    goal_data = []
+
+    for goal in goals:
+        goal_data.append({
+            'Goal_id': goal['Goal_id'],
+            'Name': goal['Name'],
+            'Description': goal['Description'],
+            'Created_at': goal['Created_at']
+        })
+
+    return render_template('Goal.html', goals=goal_data)
+
+# ============================================ Finance page ============================================
 @app.route('/Finance.html')
 def finance():
     return render_template('Finance.html')
 
+# ============================================ Finance page ============================================
 @app.route('/Fitness.html')
 def fitness():
     return render_template('Fitness.html')
